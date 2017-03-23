@@ -18,5 +18,6 @@
         "psr-4": {
             "MarceloD\\CbpqSkydivers\\": "src/"
         }
-    }
+    },
+    "minimum-stability" : "alpha"
 }
