@@ -42,7 +42,7 @@ class Skydivers
      *
      * @param string $cbpq CEP
      *
-     * @return Address
+     * @return Affiliated
      */
     public static function search($cbpq)
     {
@@ -59,16 +59,16 @@ class Skydivers
      *
      * @param string $cbpq CEP
      *
-     * @return Address
+     * @return Affiliated
      */
     public function resolve($cbpq)
     {
-        if (strlen($cbpq) != 8 && filter_var($cbpq, FILTER_VALIDATE_INT) === false) {
-            throw new CepGratisInvalidParameterException('CEP is invalid');
+        if (strlen($cbpq) == 0 && filter_var($cbpq, FILTER_VALIDATE_INT) === false) {
+            throw new CbpqSkydiversInvalidParameterException('CBPQ is invalid');
         }
 
         if (count($this->providers) == 0) {
-            throw new CepGratisInvalidParameterException('No providers were informed');
+            throw new CbpqSkydiversInvalidParameterException('No providers were informed');
         }
 
         /*
@@ -78,18 +78,18 @@ class Skydivers
 
         do {
             foreach ($this->providers as $provider) {
-                $address = $provider->getAddress($cbpq, $this->client);
+                $affiliated = $provider->getAffiliated($cbpq, $this->client);
             }
 
             if ((time() - $time) >= $this->timeout) {
-                throw new CepGratisTimeoutException("Maximum execution time of $this->timeout seconds exceeded in PHP");
+                throw new CbpqSkydiversTimeoutException("Maximum execution time of $this->timeout seconds exceeded in PHP");
             }
-        } while (is_null($address));
+        } while (is_null($affiliated));
 
         /*
          * Return
          */
-        return $address;
+        return $affiliated;
     }
 
     /**

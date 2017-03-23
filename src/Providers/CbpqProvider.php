@@ -18,8 +18,10 @@ class CbpqProvider implements ProviderContract
 
         if (!is_null($response)) {
             $crawler = new Crawler($response);
+            var_dump($crawler);
+            die();
 
-            $message = $crawler->filter('div.ctrlcontent p')->html();
+            /*$message = $crawler->filter('div.ctrlcontent p')->html();
 
             if ($message == 'DADOS ENCONTRADOS COM SUCESSO.') {
                 $tr = $crawler->filter('table.tmptabela tr:nth-child(2)');
@@ -38,7 +40,7 @@ class CbpqProvider implements ProviderContract
                 return Affiliated::create(array_map(function ($item) {
                     return urldecode(str_replace('%C2%A0', '', urlencode($item)));
                 }, $params));
-            }
+            }*/
         }
     }
 }
