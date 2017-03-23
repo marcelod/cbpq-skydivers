@@ -1,0 +1,23 @@
+{
+    "name": "marcelod/cbpq-skydivers",
+    "description": "Realizar consultas de licenças dos paraquedistas na CBPQ",
+    "keywords": ["cbpq", "skydiver", "php"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcelo Diniz",
+            "email": "marcelo.leo27@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^5.6",
+        "symfony/dom-crawler": "^3.2",
+        "symfony/css-selector": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "MarceloD\\CbpqSkydivers\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
