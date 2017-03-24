@@ -10,6 +10,8 @@ class Affiliated
 
     public $category;
 
+    public $license;
+
     public $name;
 
     public $nickname;
@@ -22,8 +24,9 @@ class Affiliated
 
     public $expiration;
 
-    public $image;
+    public $src_image;
 
+    public $error;
 
     public static function create(array $data = [])
     {

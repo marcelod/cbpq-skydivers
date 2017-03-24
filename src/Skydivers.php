@@ -10,7 +10,7 @@ use MarceloD\CbpqSkydivers\Exceptions\CbpqSkydiversTimeoutException;
 use MarceloD\CbpqSkydivers\Providers\CbpqProvider;
 
 /**
- * Class to query CEP.
+ * Class to query CBPQ.
  */
 class Skydivers
 {
@@ -30,7 +30,7 @@ class Skydivers
     private $timeout = 5;
 
     /**
-     * CepGratis constructor.
+     * Skydivers constructor.
      */
     public function __construct()
     {
@@ -38,26 +38,26 @@ class Skydivers
     }
 
     /**
-     * Search CEP on all providers.
+     * Search CBPQ on all providers.
      *
-     * @param string $cbpq CEP
+     * @param string $cbpq CBPQ
      *
      * @return Affiliated
      */
     public static function search($cbpq)
     {
-        $cbpq = new self();
-        $cbpq->addProvider(new CbpqProvider());
+        $cbpqSkydivers = new self();
+        $cbpqSkydivers->addProvider(new CbpqProvider());
 
-        $affiliated = $cbpq->resolve($cbpq);
+        $affiliated = $cbpqSkydivers->resolve($cbpq);
 
         return $affiliated;
     }
 
     /**
-     * Performs provider CEP search.
+     * Performs provider CBPQ search.
      *
-     * @param string $cbpq CEP
+     * @param string $cbpq CBPQ
      *
      * @return Affiliated
      */
