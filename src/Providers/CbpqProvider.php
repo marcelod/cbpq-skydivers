@@ -74,7 +74,5 @@ class CbpqProvider implements ProviderContract
                     return urldecode(str_replace('%C2%A0', '', urlencode($item)));
                 }, $data));
         }
-
-        return false;
     }
 }
