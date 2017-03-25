@@ -19,7 +19,8 @@ class CbpqProvider implements ProviderContract
         if (!is_null($response)) {
             $crawler = new Crawler($response);
 
-            $data['error'] = false;
+            $data['error']      = false;
+            $data['numberCbpq'] = $cbpq;
 
             $countError = $crawler->filter('.cbpq-consulta-error')->count();
             if ($countError) {
@@ -44,7 +45,7 @@ class CbpqProvider implements ProviderContract
                 $image   = $base . " > div.col-md-4 > div > div > img";
 
                 $data['status']        = $crawler->filter($status)->html();
-                $data['numberCbpq']    = $crawler->filter($num_cbpq)->html();
+                // $data['numberCbpq']    = $crawler->filter($num_cbpq)->html();
                 $data['category']      = $crawler->filter($categoria)->html();
                 $data['name']          = $crawler->filter($atleta)->html();
                 $data['club']          = $crawler->filter($clube)->html();
