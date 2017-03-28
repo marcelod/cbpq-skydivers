@@ -15,6 +15,7 @@ class CbpqProvider implements ProviderContract
     public function getAffiliated($cbpq, HttpClientContract $client)
     {
         $response = $client->get('https://www.cbpq.org.br/site/filiados/consulta-licenca?cbpq=' . $cbpq);
+        // $response = $client->get('http://localhost/html/cbpq/html_consulta_cbpq' . $cbpq . '.html');
 
         if (!is_null($response)) {
             $crawler = new Crawler($response);
@@ -25,7 +26,7 @@ class CbpqProvider implements ProviderContract
             $countError = $crawler->filter('.cbpq-consulta-error')->count();
             if ($countError) {
                 $data['error'] = true;
-                $data['status'] = $crawler->filter('span.cbpq-consulta-error')->html();
+                $data['status'] = $crawler->filter('span.cbpq-consulta-error')->text();
             }
             else{
                 $base = "body > div.wrapper > div.container > div > div.col-sm-8 > div:nth-child(3)";
@@ -44,26 +45,27 @@ class CbpqProvider implements ProviderContract
 
                 $image   = $base . " > div.col-md-4 > div > div > img";
 
-                $data['status']        = $crawler->filter($status)->html();
-                // $data['numberCbpq']    = $crawler->filter($num_cbpq)->html();
-                $data['category']      = $crawler->filter($categoria)->html();
-                $data['name']          = $crawler->filter($atleta)->html();
-                $data['club']          = $crawler->filter($clube)->html();
-                $data['federation']    = $crawler->filter($federacao)->html();
-                $data['license']       = $crawler->filter($habilitacao)->html();
-                $data['affiliation']   = $crawler->filter($filiacao)->html();
-                $data['expiration']    = $crawler->filter($validade)->html();
+                $data['status']        = $crawler->filter($status)->text();
+                // $data['numberCbpq']    = $crawler->filter($num_cbpq)->text();
+                $data['category']      = $crawler->filter($categoria)->text();
+                $data['name']          = $crawler->filter($atleta)->text();
+                $data['club']          = $crawler->filter($clube)->text();
+                $data['federation']    = $crawler->filter($federacao)->text();
+                $data['license']       = $crawler->filter($habilitacao)->text();
+                $data['affiliation']   = $crawler->filter($filiacao)->text();
+                $data['expiration']    = $crawler->filter($validade)->text();
 
-                $posInitNickname = strpos($data['name'], '  (');
+
+                $posInitNickname = strpos($data['name'], '(');
                 if ($posInitNickname !== false) {
-                    $initNickname = $posInitNickname + 3;
+                    $initNickname = $posInitNickname + 1;
                     $nickname = substr($data['name'], $initNickname, -1);
 
                     $data['nickname'] = $nickname;
 
-                    $endName = strlen($data['nickname']) + 4;
+                    $endName = -(strlen($data['nickname']) + 2);
 
-                    $name = substr($data['name'], 0,  -$endName);
+                    $name = trim(substr($data['name'], 0, $endName));
                     $data['name'] = $name;
                 }
 
